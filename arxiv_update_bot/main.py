@@ -11,7 +11,7 @@ from typing import List, Tuple
 import feedparser
 import telebot
 
-DEFAULT_CONFIGURATION_PATH = "/etc/arxiv-update-bot/config.ini"
+DEFAULT_CONFIGURATION_PATH = "./config.ini"
 
 # pylint: disable=too-few-public-methods
 class Update:
@@ -95,9 +95,11 @@ def get_articles(category: str, buzzwords: List[str]) -> List:
     news_feed = feedparser.parse(f"http://export.arxiv.org/rss/{category}")
     res = []
     for entry in news_feed.entries:
+        flag=False
         for buzzword in buzzwords:
-            if buzzword in entry.title.lower():
+            if buzzword in entry.title.lower() and not flag:
                 res.append(entry)
+                flag=True
 
     return res
 
@@ -124,18 +126,22 @@ def send_articles(
         if not quiet:
             bot.send_message(
                 chat_id,
-                text="I scraped the arXiv RSS but found nothing of interest for you. Sorry.",
+                text="Yo man, I scraped the arXiv RSS,\nBut nothing new for you, I must confess.\nMaybe arXiv is down or on vacation,\nThat's why I found no new information.\n\nBut don't you worry, I'll keep on searching,\nFor new knowledge, I'll keep on lurching.\nArXiv may be quiet, but I won't rest,\nUntil I find something that's truly the best.",
             )
     else:
         bot.send_message(
             chat_id,
-            text=f"You are going to be happy. I found {len(articles)} article(s) of potential interest.",
+            text=f'Yo, found {len(articles)} articles that might be dope, check em out!',
         )
         for article in articles:
-            bot.send_message(
-                chat_id,
-                text=f"<strong>Title</strong>: {article.title}\n<strong>Authors</strong>: {article.authors[0]['name']}\n<strong>Link</strong>: {article.id}",
-            )
+            try:
+                bot.send_message(
+                    chat_id,
+                    text=f"<strong>Title</strong>: {article.title}\n<strong>Authors</strong>: {article.authors[0]['name']}\n<strong>Link</strong>: {article.id}",
+                    parse_mode="HTML",
+                )
+            except:
+                continue
 
 
 def main():
