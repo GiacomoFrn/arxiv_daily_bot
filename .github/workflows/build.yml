@@ -2,7 +2,7 @@ name: Daily Workflow
 
 on:
   schedule:
-    - cron: '51 11 * * 1-5'
+    - cron: '19 12 * * 1-5'
   workflow_dispatch:
 
 jobs:
