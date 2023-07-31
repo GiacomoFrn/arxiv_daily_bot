@@ -2,7 +2,7 @@ name: Daily Workflow
 
 on:
   schedule:
-    - cron: '19 12 * * 1-5'
+    - cron: '34 12 * * 1-5'
   workflow_dispatch:
 
 jobs:
@@ -12,6 +12,8 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
+      with:
+          ref: qml_bot
 
     - name: Set up Python
       uses: actions/setup-python@v2
