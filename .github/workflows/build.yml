@@ -2,7 +2,8 @@ name: Daily Workflow
 
 on:
   schedule:
-    - cron: '57 12 * * 1-5'
+    - cron: '30 6 * * 1-5'
+  workflow_dispatch:
 
 jobs:
   execute_main_py:
