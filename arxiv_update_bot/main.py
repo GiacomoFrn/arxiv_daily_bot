@@ -92,7 +92,7 @@ def get_articles(category: str, buzzwords: List[str]) -> List:
     Returns:
         List: list of entries.
     """
-    news_feed = feedparser.parse(f"http://export.arxiv.org/rss/{category}")
+    news_feed = feedparser.parse(f"https://rss.arxiv.org/rss/{category}")
     res = []
     for entry in news_feed.entries:
         flag=False
@@ -137,7 +137,7 @@ def send_articles(
             try:
                 bot.send_message(
                     chat_id,
-                    text=f"<strong>Title</strong>: {article.title}\n<strong>Authors</strong>: {article.authors[0]['name']}\n<strong>Link</strong>: {article.id}",
+                    text=f"<strong>Title</strong>: {article.title}\n<strong>Authors</strong>: {article.authors[0]['name'].replace('\n', '')}\n<strong>Link</strong>: {article.link}",
                     parse_mode="HTML",
                 )
             except:
