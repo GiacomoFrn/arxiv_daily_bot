@@ -137,7 +137,7 @@ def send_articles(
             try:
                 bot.send_message(
                     chat_id,
-                    text=f"<strong>Title</strong>: {article.title}\n<strong>Authors</strong>: {article.authors[0]['name'].replace('\n ', ',')}\n<strong>Link</strong>: {article.link}",
+                    text=f"<strong>Title</strong>: {article.title}\n<strong>Authors</strong>: {article.authors[0]['name'].replace('\n   ', ',')}\n<strong>Link</strong>: {article.link}",
                     parse_mode="HTML",
                     disable_web_page_preview=True,
                 )
