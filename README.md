@@ -7,7 +7,7 @@
 [![linting: pylint](https://img.shields.io/badge/linting-pylint-yellowgreen)](https://github.com/PyCQA/pylint)
 [![Docker](https://img.shields.io/docker/v/nanoy/arxiv-update-bot?label=Docker)](https://hub.docker.com/r/nanoy/arxiv-update-bot)
 
-arxiv update bot is a simple python script that scraps the arXiv, search for interesting paper and send a message on telegram if any was found.
+arxiv update bot is a simple python script that scraps the arXiv, search for interesting paper and send a message on telegram if any was found .
 
 ## Usage
 
