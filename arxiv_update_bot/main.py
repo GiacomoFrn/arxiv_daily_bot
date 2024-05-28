@@ -123,7 +123,13 @@ def send_articles(
         quiet (bool, optional): whether to send a messae when no article is found. Defaults to False.
     """
     articles = get_articles(category, buzzwords)
-
+    authors_to_watch = os.environ["authors_to_watch"]
+    bot.send_message(
+        chat_id,
+        text=authors_to_watch,
+        parse_mode="HTML",
+        disable_web_page_preview=True,
+    )
     if not articles:
         if not quiet:
             bot.send_message(
