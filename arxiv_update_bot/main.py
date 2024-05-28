@@ -99,7 +99,7 @@ def get_articles(category: str, buzzwords: List[str]) -> List:
     for entry in news_feed.entries:
         if any(buzzword in entry.title.lower() for buzzword in buzzwords):
             res.append(entry)
-        if any(author in entry.authors[0]['name'].split(', ') for author in authors_to_watch):
+        elif any(author in entry.authors[0]['name'].split(', ') for author in authors_to_watch):
             res.append(entry)
 
     return res
@@ -123,12 +123,7 @@ def send_articles(
     """
     articles = get_articles(category, buzzwords)
     authors_to_watch = os.environ["authors_to_watch"]
-    bot.send_message(
-        chat_id,
-        text=authors_to_watch,
-        parse_mode="HTML",
-        disable_web_page_preview=True,
-    )
+    
     if not articles:
         if not quiet:
             bot.send_message(
