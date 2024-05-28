@@ -73,7 +73,7 @@ def load_config(path: str) -> Tuple[str, List[Update]]:
         raise Exception("The bot section must have the bot token.")
 
     #token = bot_config["token"]
-    token = os.environ("token")
+    token = os.environ["token"]
     updates = []
     for section in config.sections():
         if str(section) != "bot":
