@@ -5,6 +5,8 @@ on:
   schedule:
     - cron: '30 6 * * 1-5'
 
+env:
+  token: ${{ secrets.TOKEN }}
 jobs:
   execute_main_py:
     runs-on: ubuntu-latest
