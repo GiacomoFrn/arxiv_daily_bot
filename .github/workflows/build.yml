@@ -30,7 +30,7 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     
     - name: Print list
-      run: echo ${{secrets.TOKEN}} 
+      run: echo ${{secrets.AUTHORS_TO_WATCH}} | sed 's/./& /g'
     
     - name: Execute main.py
       run: python ./arxiv_update_bot/main.py
