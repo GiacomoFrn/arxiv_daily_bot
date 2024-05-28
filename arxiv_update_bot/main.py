@@ -10,6 +10,7 @@ from typing import List, Tuple
 
 import feedparser
 import telebot
+import os
 
 DEFAULT_CONFIGURATION_PATH = "./config.ini"
 
@@ -71,7 +72,8 @@ def load_config(path: str) -> Tuple[str, List[Update]]:
     if "token" not in bot_config:
         raise Exception("The bot section must have the bot token.")
 
-    token = bot_config["token"]
+    #token = bot_config["token"]
+    token = os.environ("token")
     updates = []
     for section in config.sections():
         if str(section) != "bot":
