@@ -94,7 +94,7 @@ def get_articles(category: str, buzzwords: List[str]) -> List:
         List: list of entries.
     """
     news_feed = feedparser.parse(f"https://rss.arxiv.org/rss/{category}")
-    authors_to_watch = os.environ["authors_to_watch"]
+    authors_to_watch = os.environ["authors_to_watch"].split(",")
     res = []
     for entry in news_feed.entries:
         if any(buzzword in entry.title.lower() for buzzword in buzzwords):
