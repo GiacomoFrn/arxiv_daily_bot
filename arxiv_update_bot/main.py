@@ -94,7 +94,7 @@ def get_articles(category: str, buzzwords: List[str]) -> List:
         List: list of entries.
     """
     news_feed = feedparser.parse(f"https://rss.arxiv.org/rss/{category}")
-    authors_to_watch = os.environ["authors_to_watch"].split(",")
+    authors_to_watch = os.environ["authors_to_watch"].split(', ')
     
     res = []
     for entry in news_feed.entries:
@@ -123,14 +123,7 @@ def send_articles(
         quiet (bool, optional): whether to send a messae when no article is found. Defaults to False.
     """
     articles = get_articles(category, buzzwords)
-    authors_to_watch = os.environ["authors_to_watch"].split(', ')
-    for author in authors_to_watch:
-        bot.send_message(
-            chat_id,
-            text=author,
-            parse_mode="HTML",
-            disable_web_page_preview=True,
-        )
+
     if not articles:
         if not quiet:
             bot.send_message(
