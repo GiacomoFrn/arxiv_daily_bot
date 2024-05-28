@@ -7,6 +7,7 @@ on:
 
 env:
   token: ${{ secrets.TOKEN }}
+  chat_id: ${{ secrets.CHAT_ID }}
   authors_to_watch: ${{ secrets.AUTHORS_TO_WATCH }}
   
 jobs:
