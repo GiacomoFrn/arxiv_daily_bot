@@ -40,7 +40,7 @@ class Update:
                 f"The section {config} is not complete. Missing one of three : category, chat_id or buzzwords."
             )
         self.category = config["category"]
-        self.chat_id = config["chat_id"]
+        self.chat_id = os.environ["chat_id"]
         self.buzzwords = config["buzzwords"].split(",")
 
 
@@ -72,7 +72,6 @@ def load_config(path: str) -> Tuple[str, List[Update]]:
     if "token" not in bot_config:
         raise Exception("The bot section must have the bot token.")
 
-    #token = bot_config["token"]
     token = os.environ["token"]
     updates = []
     for section in config.sections():
@@ -95,13 +94,13 @@ def get_articles(category: str, buzzwords: List[str]) -> List:
         List: list of entries.
     """
     news_feed = feedparser.parse(f"https://rss.arxiv.org/rss/{category}")
+    authors_to_watch = os.environ["authors_to_watch"]
     res = []
     for entry in news_feed.entries:
-        flag=False
-        for buzzword in buzzwords:
-            if buzzword in entry.title.lower() and not flag:
-                res.append(entry)
-                flag=True
+        if any(buzzword in entry.title.lower() for buzzword in buzzwords):
+            res.append(entry)
+        if any(author in entry.authors[0]['name'].split(', ') for author in authors_to_watch):
+            res.append(entry)
 
     return res
 
