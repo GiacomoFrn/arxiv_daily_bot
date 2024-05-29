@@ -62,7 +62,7 @@ def load_config(path: str) -> Tuple[str, List[Update]]:
     """
     config = configparser.ConfigParser()
     config.read(path)
-
+    """
     if "bot" not in config:
         raise Exception(
             "A bot section must be in the configuration file to set the token"
@@ -71,7 +71,7 @@ def load_config(path: str) -> Tuple[str, List[Update]]:
     bot_config = config["bot"]
     if "token" not in bot_config:
         raise Exception("The bot section must have the bot token.")
-
+    """
     token = os.environ["token"]
     updates = []
     for section in config.sections():
