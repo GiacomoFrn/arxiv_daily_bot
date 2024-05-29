@@ -34,11 +34,12 @@ class Update:
 
         Raises:
             Exception: if the section is not complete (i.e. missing one of category, chat_id or buzzwords).
-        """
+        
         if not ("category" in config and "chat_id" in config and "buzzwords" in config):
             raise Exception(
                 f"The section {config} is not complete. Missing one of three : category, chat_id or buzzwords."
             )
+        """
         self.category = config["category"]
         self.chat_id = os.environ["chat_id"]
         self.buzzwords = config["buzzwords"].split(",")
