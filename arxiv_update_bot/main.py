@@ -111,7 +111,7 @@ def get_articles(category: str, buzzwords: List[str]) -> List:
     news_feed = feedparser.parse(f"https://rss.arxiv.org/rss/{category}")
     authors_to_watch = os.environ["authors_to_watch"].split(', ')
     # Normalize the watchlist names once
-    normalized_watchlist = [normalize_name(name) for name in authors_to_watch.split(', ')]
+    normalized_watchlist = [normalize_name(name) for name in authors_to_watch]
     
     res = []
     
