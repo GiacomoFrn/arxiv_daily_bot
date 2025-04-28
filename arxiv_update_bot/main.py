@@ -167,9 +167,9 @@ def send_articles(
                     parse_mode="HTML",
                     disable_web_page_preview=True,
                 )
-                text_list = []
-                for author in article.authors[0]['name']:
-                    text_list.append(fuzz.token_sort_ratio(normalize_name(author), normalize_name("Jakob Gunther")))
+                text_list = {}
+                for author in article.authors[0]['name'].split(', '):
+                    text_list[author] = fuzz.token_sort_ratio(normalize_name(author), normalize_name("Jakob Gunther")))
                 bot.send_message(
                     chat_id,
                     text=str(text_list),
