@@ -88,7 +88,7 @@ def normalize_name(name):
     nfkd_form = unicodedata.normalize('NFKD', name)
     without_accents = ''.join([c for c in nfkd_form if not unicodedata.combining(c)])
     # remove "/" and " from the name
-    without_accents = without_accents.replace('/', '').replace('"', '')
+    without_accents =  ''.join(e for e in without_accents if e.isalnum() or e.isspace())
     return without_accents.lower().strip()
 
 
