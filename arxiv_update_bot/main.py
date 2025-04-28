@@ -11,6 +11,8 @@ from typing import List, Tuple
 import feedparser
 import telebot
 import os
+import unicodedata
+from rapidfuzz import fuzz
 
 DEFAULT_CONFIGURATION_PATH = "./config.ini"
 
@@ -81,6 +83,18 @@ def load_config(path: str) -> Tuple[str, List[Update]]:
     return token, updates
 
 
+def normalize_name(name):
+    # Normalize to NFKD form and remove diacritics
+    nfkd_form = unicodedata.normalize('NFKD', name)
+    without_accents = ''.join([c for c in nfkd_form if not unicodedata.combining(c)])
+    return without_accents.lower().strip()
+
+
+def is_name_match(name1, name2, threshold=90):
+    # Returns True if the similarity ratio is above the threshold
+    return fuzz.token_sort_ratio(name1, name2) >= threshold
+
+
 def get_articles(category: str, buzzwords: List[str]) -> List:
     """Get the articles from arXiv.
 
@@ -96,14 +110,23 @@ def get_articles(category: str, buzzwords: List[str]) -> List:
     """
     news_feed = feedparser.parse(f"https://rss.arxiv.org/rss/{category}")
     authors_to_watch = os.environ["authors_to_watch"].split(', ')
+    # Normalize the watchlist names once
+    normalized_watchlist = [normalize_name(name) for name in authors_to_watch]
     
     res = []
     for entry in news_feed.entries:
         if any(buzzword in entry.title.lower() for buzzword in buzzwords):
             res.append(entry)
+        """
         elif any(author in entry.authors[0]['name'].split(', ') for author in authors_to_watch):
             res.append(entry)
-
+        """
+        else:
+            for author in entry.authors[0]['name'].split(', '):
+                normalized_author = normalize_name(author['name'])
+                if any(is_name_match(normalized_author, watch_name) for watch_name in normalized_watchlist):
+                    res.append(entry)
+                    break  # Avoid adding the same entry multiple times
     return res
 
 
