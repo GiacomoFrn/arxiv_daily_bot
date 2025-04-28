@@ -115,12 +115,12 @@ def get_articles(category: str, buzzwords: List[str]) -> List:
     
     res = []
     
-         """
-        if any(buzzword in entry.title.lower() for buzzword in buzzwords):
-            res.append(entry)
-        elif any(author in entry.authors[0]['name'].split(', ') for author in authors_to_watch):
-            res.append(entry)
-        """
+    """
+    if any(buzzword in entry.title.lower() for buzzword in buzzwords):
+        res.append(entry)
+    elif any(author in entry.authors[0]['name'].split(', ') for author in authors_to_watch):
+        res.append(entry)
+    """
     for entry in news_feed.entries:
         for author in entry.authors[0]['name'].split(', '):
             normalized_author = normalize_name(author['name'])
