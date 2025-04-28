@@ -165,7 +165,7 @@ def send_articles(
             try:
                 bot.send_message(
                     chat_id,
-                    text="<strong>Title</strong>: " + article.title + "\n<strong>Authors</strong>: " + article.authors[0]['name'].replace('\\', '') + "\n<strong>Link</strong>: " + article.link+ str(is_name_match(normalized_author, "Jakob Gunther"))),
+                    text="<strong>Title</strong>: " + article.title + "\n<strong>Authors</strong>: " + article.authors[0]['name'].replace('\\', '') + "\n<strong>Link</strong>: " + article.link+ str(is_name_match(normalized_author, "Jakob Gunther")),
                     parse_mode="HTML",
                     disable_web_page_preview=True,
                 )
