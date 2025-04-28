@@ -114,19 +114,19 @@ def get_articles(category: str, buzzwords: List[str]) -> List:
     normalized_watchlist = [normalize_name(name) for name in authors_to_watch]
     
     res = []
-    for entry in news_feed.entries:
+    
+         """
         if any(buzzword in entry.title.lower() for buzzword in buzzwords):
             res.append(entry)
-        """
         elif any(author in entry.authors[0]['name'].split(', ') for author in authors_to_watch):
             res.append(entry)
         """
-        else :
-            for author in entry.authors[0]['name'].split(', '):
-                normalized_author = normalize_name(author['name'])
-                if any(is_name_match(normalized_author, watch_name) for watch_name in normalized_watchlist):
-                    res.append(entry)
-                    break  # Avoid adding the same entry multiple times
+    for entry in news_feed.entries:
+        for author in entry.authors[0]['name'].split(', '):
+            normalized_author = normalize_name(author['name'])
+            if any(is_name_match(normalized_author, watch_name) for watch_name in normalized_watchlist) or any(buzzword in entry.title.lower() for buzzword in buzzwords):
+                res.append(entry)
+                break  # Avoid adding the same entry multiple times
     return res
 
 
