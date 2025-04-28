@@ -126,7 +126,7 @@ def get_articles(category: str, buzzwords: List[str]) -> List:
     for entry in news_feed.entries:
         for author in entry.authors[0]['name'].split(', '):
             normalized_author = normalize_name(author)
-            if any(is_name_match(normalized_author, watch_name) for watch_name in normalized_watchlist): #or any(buzzword in entry.title.lower() for buzzword in buzzwords):
+            if any(is_name_match(normalized_author, watch_name) for watch_name in normalized_watchlist) or any(buzzword in entry.title.lower() for buzzword in buzzwords):
                 res.append(entry)
                 break  # Avoid adding the same entry multiple times
     return res
@@ -166,15 +166,6 @@ def send_articles(
                 bot.send_message(
                     chat_id,
                     text="<strong>Title</strong>: " + article.title + "\n<strong>Authors</strong>: " + article.authors[0]['name'].replace('\\', '') + "\n<strong>Link</strong>: " + article.link,
-                    parse_mode="HTML",
-                    disable_web_page_preview=True,
-                )
-                text_list = {}
-                for author in article.authors[0]['name'].split(', '):
-                    text_list[author] = (normalize_name(author), normalize_name("Jakob Gunther"), fuzz.token_sort_ratio(normalize_name(author), normalize_name("Jakob Gunther")))
-                bot.send_message(
-                    chat_id,
-                    text=str(text_list),
                     parse_mode="HTML",
                     disable_web_page_preview=True,
                 )
