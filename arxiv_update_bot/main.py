@@ -87,6 +87,8 @@ def normalize_name(name):
     # Normalize to NFKD form and remove diacritics
     nfkd_form = unicodedata.normalize('NFKD', name)
     without_accents = ''.join([c for c in nfkd_form if not unicodedata.combining(c)])
+    # remove "/" and " from the name
+    without_accents = without_accents.replace('/', '').replace('"', '')
     return without_accents.lower().strip()
 
 
