@@ -121,7 +121,7 @@ def get_articles(category: str, buzzwords: List[str]) -> List:
         elif any(author in entry.authors[0]['name'].split(', ') for author in authors_to_watch):
             res.append(entry)
         """
-        else:
+        else :
             for author in entry.authors[0]['name'].split(', '):
                 normalized_author = normalize_name(author['name'])
                 if any(is_name_match(normalized_author, watch_name) for watch_name in normalized_watchlist):
