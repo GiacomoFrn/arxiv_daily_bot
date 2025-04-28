@@ -109,7 +109,7 @@ def get_articles(category: str, buzzwords: List[str]) -> List:
         List: list of entries.
     """
     news_feed = feedparser.parse(f"https://rss.arxiv.org/rss/{category}")
-    authors_to_watch = os.environ["authors_to_watch"].split(', ')
+    authors_to_watch = "Jakob Gunther, Antonio Acin, Federico Centrone, Hippolyte Dourdent, David Jansen, Tamás Kriváchy, Márcio M Taddei, Pere Mujal, Ignacio Perito, Ranieri Nery, Raja Yehia, Leonardo Zambrano, Maria Balanzó-Juandó, Júlia Barberà Rodríguez, Fionnuala Curran, Raffaele D'Avino, Francesco Flora, Giacomo Franceschetto, Timothy Heightman, Luke Mortimer, Mariana Navarro Asan-Srain, Egle Pagliaro, Teodor Parella-Dilmé, Erik Recio Armengol, Anna Steffinlongo, Emilio Annoni, Antonio Sannia, Tommaso Grigoletto, Hsin-Yuan Huang, Marcin P{\\l}odzie\\'n, Giacomo Franceschetto, Alexia Salavrakos, Arno Ricou, Joseph Bowles".split(', ')#os.environ["authors_to_watch"].split(', ')
     # Normalize the watchlist names once
     normalized_watchlist = [normalize_name(name) for name in authors_to_watch]
     
