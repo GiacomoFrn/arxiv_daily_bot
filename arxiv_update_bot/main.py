@@ -124,8 +124,6 @@ def get_articles(category: str, buzzwords: List[str]) -> List:
     for entry in news_feed.entries:
         for author in entry.authors[0]['name'].split(', '):
             normalized_author = normalize_name(author)
-            if author == "Jakob G\"unther":
-                res.append(entry)
             if any(is_name_match(normalized_author, watch_name) for watch_name in normalized_watchlist) :#or any(buzzword in entry.title.lower() for buzzword in buzzwords):
                 res.append(entry)
                 break  # Avoid adding the same entry multiple times
@@ -165,7 +163,7 @@ def send_articles(
             try:
                 bot.send_message(
                     chat_id,
-                    text="<strong>Title</strong>: " + article.title + "\n<strong>Authors</strong>: " + article.authors[0]['name'].replace('\\', '') + "\n<strong>Link</strong>: " + article.link+ str(is_name_match(normalized_author, "Jakob Gunther")),
+                    text="<strong>Title</strong>: " + article.title + "\n<strong>Authors</strong>: " + article.authors[0]['name'].replace('\\', '') + "\n<strong>Link</strong>: " + article.link,
                     parse_mode="HTML",
                     disable_web_page_preview=True,
                 )
