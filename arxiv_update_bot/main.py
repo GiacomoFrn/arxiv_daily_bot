@@ -172,7 +172,7 @@ def send_articles(
                     text_list.append(fuzz.token_sort_ratio(normalize_name(author), normalize_name("Jakob Gunther")))
                 bot.send_message(
                     chat_id,
-                    text=str(text_list)
+                    text=str(text_list),
                     parse_mode="HTML",
                     disable_web_page_preview=True,
                 )
